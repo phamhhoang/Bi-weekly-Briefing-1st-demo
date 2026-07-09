@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PFM Weekly Intelligence Briefing — 9 July 2026</title>
+<style>
+  :root{
+    --navy:#0a1628; --navy2:#0e1d33; --card:#13253f; --card2:#182c4a;
+    --ink:#e8edf5; --ink-dim:#9fb0c8; --ink-faint:#6b7f9c;
+    --gold:#d4a24c; --teal:#3ec9a7; --amber:#e6b455; --slate:#8aa0bd; --red:#e07a6a;
+    --line:#24395c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--navy);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;overflow:hidden}
+  .deck{height:100vh;position:relative}
+  .slide{position:absolute;inset:0;padding:56px 72px 88px;display:none;flex-direction:column;overflow-y:auto;
+    background:radial-gradient(1200px 600px at 85% -10%, rgba(212,162,76,.07), transparent 60%), var(--navy)}
+  .slide.active{display:flex}
+  h1,h2,h3,.serif{font-family:Georgia,"Times New Roman",serif}
+  .kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:600}
+  h1{font-size:44px;line-height:1.15;font-weight:400}
+  h2{font-size:30px;font-weight:400;margin-bottom:6px}
+  .sub{color:var(--ink-dim);font-size:15px;margin-top:10px}
+  .rule{width:64px;height:3px;background:var(--gold);margin:22px 0 26px;border-radius:2px}
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:auto}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 16px}
+  .kpi .v{font-family:Georgia,serif;font-size:30px;color:var(--gold)}
+  .kpi .l{font-size:12.5px;color:var(--ink-dim);margin-top:6px;line-height:1.45}
+  .kpi.warn .v{color:var(--amber)}
+
+  ul.exec{list-style:none;margin-top:8px}
+  ul.exec li{padding:13px 0 13px 26px;border-bottom:1px solid var(--line);position:relative;font-size:15.5px;line-height:1.55;color:var(--ink)}
+  ul.exec li::before{content:"";position:absolute;left:2px;top:22px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+  ul.exec b{color:#fff}
+  ul.exec a{color:#fff;text-decoration:none;border-bottom:1px dotted rgba(62,201,167,.65)}
+  ul.exec a:hover{color:var(--teal)}
+
+  .cards{display:grid;gap:16px;margin-top:4px}
+  .cards.two{grid-template-columns:1fr 1fr}
+  .cards.three{grid-template-columns:1fr 1fr 1fr}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 22px;display:flex;flex-direction:column}
+  .card .ck{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px;font-weight:600}
+  .card h3{font-size:18.5px;line-height:1.35;margin-bottom:8px;font-weight:400;color:#fff}
+  .card p{font-size:13.5px;color:var(--ink-dim);line-height:1.55}
+  .card .why{margin-top:8px}
+  .card .why b{color:var(--gold);font-weight:600}
+  .card .next{margin-top:10px;font-size:13px;color:var(--ink);background:rgba(212,162,76,.08);border-left:3px solid var(--gold);padding:8px 12px;border-radius:0 6px 6px 0;line-height:1.5}
+  .pill{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:10px;align-self:flex-start}
+  .pill.new{background:rgba(62,201,167,.14);color:var(--teal);border:1px solid rgba(62,201,167,.4)}
+  .pill.watch{background:rgba(230,180,85,.12);color:var(--amber);border:1px solid rgba(230,180,85,.4)}
+  .pill.bg{background:rgba(138,160,189,.12);color:var(--slate);border:1px solid rgba(138,160,189,.35)}
+  details{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+  summary{cursor:pointer;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;list-style:none}
+  summary::before{content:"▸ ";}
+  details[open] summary::before{content:"▾ ";}
+  details .d{font-size:13px;color:var(--ink-dim);line-height:1.6;margin-top:8px}
+  details a{color:var(--teal);text-decoration:none;border-bottom:1px dotted rgba(62,201,167,.5)}
+  details a:hover{border-bottom-style:solid}
+
+  .quietlist{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 22px;margin-top:16px}
+  .quietlist p{font-size:13.5px;color:var(--ink-dim);line-height:1.7}
+  .quietlist b{color:var(--ink)}
+
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+  .legend .card p{font-size:14px}
+
+  .nav{position:fixed;bottom:26px;left:0;right:0;display:flex;justify-content:center;gap:10px;z-index:10}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--line);border:none;cursor:pointer;padding:0}
+  .dot.on{background:var(--gold);transform:scale(1.25)}
+  .pageno{position:fixed;bottom:22px;right:28px;font-size:11.5px;color:var(--ink-faint);letter-spacing:.1em}
+  .brand{position:fixed;bottom:22px;left:28px;font-size:11.5px;color:var(--ink-faint);letter-spacing:.18em;text-transform:uppercase}
+  .hint{position:fixed;top:20px;right:28px;font-size:11px;color:var(--ink-faint)}
+  .foot-note{margin-top:auto;padding-top:18px;font-size:12px;color:var(--ink-faint);line-height:1.5}
+
+  @media print{
+    body{overflow:visible;background:#fff;color:#111}
+    .deck{height:auto}
+    .slide{position:static;display:block !important;page-break-after:always;background:#fff;padding:36px 40px;overflow:visible}
+    .nav,.pageno,.brand,.hint{display:none}
+    :root{--ink:#111;--ink-dim:#333;--ink-faint:#555;--card:#f4f6f9;--card2:#eef1f6;--line:#c9d2df;--navy:#fff}
+    .card,.kpi,.quietlist{background:#f4f6f9;border-color:#c9d2df}
+    .card h3,ul.exec b,.quietlist b{color:#000}
+    h1,h2{color:#000}
+    details a{color:#0a5}
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <!-- 1 · COVER -->
+  <section class="slide active">
+    <div class="kicker">PFM srl · Ufficio Intelligence Commerciale</div>
+    <h1>Commercial Intelligence Briefing</h1>
+    <div class="sub serif" style="font-size:19px;color:var(--gold)">Thursday, 9 July 2026</div>
+    <div class="sub">Bi-weekly commercial intelligence for the PFM management team.</div>
+    <div class="kpis">
+      <div class="kpi"><div class="v">€10.5bn</div><div class="l">Italian packaging-machinery revenue 2025, <b>+4% YoY</b> — UCIMA final, 3 Jul 2026</div></div>
+      <div class="kpi"><div class="v">€2.28bn</div><div class="l">FFS machines 2025 (PFM core family), <b>+1.9% YoY</b> — UCIMA 14th Survey</div></div>
+      <div class="kpi warn"><div class="v">−5.8%</div><div class="l">Sector order intake Q1 2026 YoY (export −6.8%) — order book softening to watch</div></div>
+      <div class="kpi"><div class="v">+22%</div><div class="l">IPACK-IMA 2028 exhibitor rebooking vs prior cycle — announced 2 Jul 2026</div></div>
+    </div>
+  </section>
+
+  <!-- 2 · EXECUTIVE SUMMARY -->
+  <section class="slide">
+    <div class="kicker">Executive summary</div>
+    <h2>A quiet competitor week — the news is in machines for hygiene, trade-show strategy, and the regulatory clock</h2>
+    <div class="rule"></div>
+    <ul class="exec">
+      <li><a href="https://www.provisioneronline.com/articles/120880-harpak-ulma-launches-vertical-form-fill-seal-washdown-packaging-system" target="_blank" rel="noopener"><b>Harpak-ULMA launched the VTC 840 WD</b></a> (8 Jul): a full IP66 washdown VFFS aimed at US food plants, debuting at PACK EXPO International in November. ULMA also added <a href="https://www.packagingnews.co.uk/news/people/movers-and-appointments/ulma-packaging-uk-invests-in-service-team-with-new-recruitments-06-07-2026" target="_blank" rel="noopener">UK/Ireland service capacity</a> (6 Jul). The only material competitor product move of the period.</li>
+      <li><a href="https://www.italiaimballaggio.it/eventi/ipack-ima-2028-accelera-milano-al-centro-della-strategia" target="_blank" rel="noopener"><b>IPACK-IMA 2028 formally accelerated</b></a> (2 Jul): 29 May–1 Jun 2028, Fiera Milano, new "ecosystem" model — and rebooking already +22% vs the prior cycle. Stand position competition starts now.</li>
+      <li><a href="https://ec.europa.eu/commission/presscorner/detail/en/ip_26_664" target="_blank" rel="noopener"><b>Regulatory calendar tightening:</b></a> PPWR applies in full 12 Aug (~5 weeks); the EU <a href="https://www.italiaimballaggio.it/fatti-e-dati/la-normativa-europea-sul-bisfenolo-impatti-e-tempistiche-limballaggio-alimentare" target="_blank" rel="noopener">BPA ban on new single-use BPA food-contact packaging</a> bites 20 Jul (11 days); <a href="https://www.italiaimballaggio.it/fatti-e-dati/conai-nuovo-contributo-capsule-e-cialde-bioplastica-compostabile" target="_blank" rel="noopener">Conai added an EPR fee category for compostable capsules</a> (7 Jul).</li>
+      <li><a href="https://www.alimentando.info/ucima-macchine-packaging-2-nel-2025-un-altro-fatturato-record/" target="_blank" rel="noopener"><b>UCIMA baseline unchanged</b></a> — no newer official figures this period; <a href="https://packaging-journal.de/italiens-maschinenbauer-wachsen-trotz-schwieriger-maerkte/" target="_blank" rel="noopener">German trade press picked the story up</a>, adding employment of 40,611 (+0.3%).</li>
+      <li><a href="https://millingmea.com/h1-2026-in-review-baking-snacks-sector-trends-ma-investments-and-new-products/" target="_blank" rel="noopener"><b>End-user read:</b></a> bakery/snacks consolidation and capacity building continue (Rise Baking Utah, Aryzta Portugal); pet food US programs ongoing; <a href="https://www.alimentando.info/packaging-il-salone-allforpack-emballage-paris-cambia-location-e-date/" target="_blank" rel="noopener"><b>Allforpack Paris moved to 29 Jun–1 Jul 2027</b></a> — the France event calendar needs updating.</li>
+    </ul>
+  </section>
+
+  <!-- 3 · TOP SIGNALS 1/2 -->
+  <section class="slide">
+    <div class="kicker">Top signals · 1 of 2</div>
+    <h2>Two new-this-week signals</h2>
+    <div class="rule"></div>
+    <div class="cards two">
+      <div class="card">
+        <span class="pill new">New this week</span>
+        <div class="ck">Competitor product · VFFS · USA</div>
+        <h3>Harpak-ULMA launches VTC 840 WD — full IP66 washdown vertical FFS</h3>
+        <p class="why"><b>Why it matters:</b> ULMA's US arm is attacking hygienic VFFS (dairy, frozen, protein; washdown also matters in pet food) with a utility-cost pitch — and North America is the fastest-growing FFS geography (+38% cumulative 2023–25, 16.1% of segment sales).</p>
+        <div class="next"><b>Implication:</b> US agents will face this pitch head-on at PACK EXPO International (Chicago, Nov 2026) — PFM's hygiene/washdown story becomes a live comparison point.</div>
+        <details><summary>Details</summary><div class="d">Launched 8 Jul 2026. Full IP66-certified washdown architecture; film path simplified from 30 reel rollers to 5; reduced electrical and compressed-air consumption; barcode-driven recipe automation, automatic machine adjustments, zone-specific alarms to cut operator dependency. North American trade-show debut at PACK EXPO International 2026. Source: <a href="https://www.provisioneronline.com/articles/120880-harpak-ulma-launches-vertical-form-fill-seal-washdown-packaging-system" target="_blank" rel="noopener">The National Provisioner, 8 Jul 2026</a></div></details>
+      </div>
+      <div class="card">
+        <span class="pill new">New this week</span>
+        <div class="ck">Trade shows · Italy · 2028 planning</div>
+        <h3>IPACK-IMA 2028 accelerates: ecosystem model, rebooking +22%</h3>
+        <p class="why"><b>Why it matters:</b> PFM's home-market flagship show. Record early rebooking means space and position competition has already started; the ecosystem build-out (Pharmintech, Bevertech, ProPak network) widens its international pull.</p>
+        <div class="next"><b>Implication:</b> stand space and positioning for 2028 will tighten early — rebooking timing affects cost and location options.</div>
+        <details><summary>Details</summary><div class="d">Announced 2 Jul 2026 (presented at Messe Düsseldorf). Dates 29 May–1 Jun 2028, Fiera Milano. Partnership architecture: UCIMA + Fiera Milano as foundations; Informa Markets/ProPak for high-growth international markets; BolognaFiere for Pharmintech; UIV–SIMEI for the Bevertech debut. Exhibitor reconfirmations +22% vs the same point in the previous cycle. Source: <a href="https://www.italiaimballaggio.it/eventi/ipack-ima-2028-accelera-milano-al-centro-della-strategia" target="_blank" rel="noopener">ItaliaImballaggio, 2 Jul 2026</a></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · TOP SIGNALS 2/2 -->
+  <section class="slide">
+    <div class="kicker">Top signals · 2 of 2</div>
+    <h2>Standing items: the clock, the baseline, the calendar</h2>
+    <div class="rule"></div>
+    <div class="cards three">
+      <div class="card">
+        <span class="pill watch">Watchlist</span>
+        <div class="ck">Regulatory · EU</div>
+        <h3>PPWR in 34 days; BPA ban in 11</h3>
+        <p class="why"><b>Why it matters:</b> compliance pressure lands on pouch and flow-wrap customers now — mono-material and PCR-capable line arguments carry immediate weight across EU markets.</p>
+        <div class="next"><b>Implication:</b> compliance readiness becomes a differentiator in every active pouch and flow-wrap conversation before 12 Aug.</div>
+        <details><summary>Details</summary><div class="d">PPWR (Reg. EU 2025/40) applies in full from 12 Aug 2026: mandatory reuse systems, PFAS ban in food-contact packaging, "recyclable in principle" design requirement. Commission guidance published 30 Mar 2026. Separately, Reg. (EU) 2024/3190: from 20 Jul 2026 new single-use food-contact packaging with BPA coatings may no longer be placed on the EU market (fruit/vegetable/fish cans and outer-surface-only coatings: Jan 2028). Sources: <a href="https://ec.europa.eu/commission/presscorner/detail/en/ip_26_664" target="_blank" rel="noopener">European Commission, 30 Mar 2026</a> · <a href="https://www.italiaimballaggio.it/fatti-e-dati/la-normativa-europea-sul-bisfenolo-impatti-e-tempistiche-limballaggio-alimentare" target="_blank" rel="noopener">ItaliaImballaggio, 1 May 2026</a></div></details>
+      </div>
+      <div class="card">
+        <span class="pill bg">Update · no change</span>
+        <div class="ck">Market data · UCIMA</div>
+        <h3>UCIMA baseline stands; story now in German trade press</h3>
+        <p class="why"><b>Why it matters:</b> planning numbers are stable (2025: €10.5bn +4%; FFS €2.28bn +1.9%; Q1-26 orders −5.8%). The only new element: German-press pickup puts the Italian sector story in front of German buyers and competitors.</p>
+        <div class="next"><b>Implication:</b> planning baselines remain valid; the next revision point is the Q2 congiunturale (~Oct).</div>
+        <details><summary>Details</summary><div class="d">14th National Statistical Survey (629 companies, MECS), presented at the 3 Jul assembly. Exports €8.19bn (+2.5%, 78.3% of revenue); domestic €2.27bn (+9.9%). German coverage adds sector employment: 40,611 (+0.3%). Maurizio Bertocco is the new UCIMA president. Sources: <a href="https://www.alimentando.info/ucima-macchine-packaging-2-nel-2025-un-altro-fatturato-record/" target="_blank" rel="noopener">Alimentando, 3 Jul 2026</a> · <a href="https://packaging-journal.de/italiens-maschinenbauer-wachsen-trotz-schwieriger-maerkte/" target="_blank" rel="noopener">packaging journal (DE)</a></div></details>
+      </div>
+      <div class="card">
+        <span class="pill bg">Background · 23 Jun</span>
+        <div class="ck">Trade shows · France</div>
+        <h3>Allforpack Paris moves to Jun/Jul 2027, Porte de Versailles</h3>
+        <p class="why"><b>Why it matters:</b> France is a priority market and the November 2026 French show slot disappears — agent activity and demo planning for France shift to H1 2027, with more operating machinery promised on the floor.</p>
+        <div class="next"><b>Implication:</b> France demo and visibility opportunities shift from November 2026 to H1 2027.</div>
+        <details><summary>Details</summary><div class="d">Announced 23 Jun 2026 (outside the 7-day window; first time reported in this briefing). Originally 24–26 Nov 2026 at Paris Nord Villepinte; now 29 Jun–1 Jul 2027 at Paris Expo Porte de Versailles. Organizer: Comexposium. Source: <a href="https://www.alimentando.info/packaging-il-salone-allforpack-emballage-paris-cambia-location-e-date/" target="_blank" rel="noopener">Alimentando, 23 Jun 2026</a></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · COMPETITOR WATCH — ACTIVE -->
+  <section class="slide">
+    <div class="kicker">Competitor watch · active signals</div>
+    <h2>ULMA is the mover this week; Syntegon unchanged</h2>
+    <div class="rule"></div>
+    <div class="cards three">
+      <div class="card">
+        <span class="pill new">New this week</span>
+        <div class="ck">ULMA / Harpak-ULMA · Product</div>
+        <h3>Washdown VFFS for the US market</h3>
+        <p>VTC 840 WD (8 Jul): IP66 washdown, lower utility use, simplified film path, recipe automation. PACK EXPO debut in November.</p>
+        <p class="why"><b>Implication:</b> hygiene + operating-cost pitch straight at US dairy/frozen/pet-food lines.</p>
+        <details><summary>Details</summary><div class="d">See Top Signals slide. Source: <a href="https://www.provisioneronline.com/articles/120880-harpak-ulma-launches-vertical-form-fill-seal-washdown-packaging-system" target="_blank" rel="noopener">National Provisioner, 8 Jul 2026</a></div></details>
+      </div>
+      <div class="card">
+        <span class="pill new">New this week</span>
+        <div class="ck">ULMA UK · Service network</div>
+        <h3>UK/Ireland service expansion</h3>
+        <p>Two technician appointments (6 Jul), including ULMA's first dedicated service engineer based in Ireland (Tommy Ennis) plus UK coverage (Maricel Parasca).</p>
+        <p class="why"><b>Implication:</b> raises ULMA's after-sales bar in the UK — Italy's #7 machinery export destination (UCIMA, 2025).</p>
+        <details><summary>Details</summary><div class="d">Source: <a href="https://www.packagingnews.co.uk/news/people/movers-and-appointments/ulma-packaging-uk-invests-in-service-team-with-new-recruitments-06-07-2026" target="_blank" rel="noopener">Packaging News, 6 Jul 2026</a></div></details>
+      </div>
+      <div class="card">
+        <span class="pill watch">Watchlist · pending</span>
+        <div class="ck">Syntegon · Ownership</div>
+        <h3>Apollo/CVC stake deal still pending</h3>
+        <p>No new announcements this week (press page and search checked). The 37% minority-stake sale to Apollo-managed funds (announced 23 Mar) awaits approval.</p>
+        <p class="why"><b>Implication:</b> a recapitalized, growth-funded rival in Flow wrap/Bakery/Germany once closed.</p>
+        <details><summary>Details</summary><div class="d">Record 2025 (€1.75bn revenue, +10% YoY) already reported in previous issues. Source: <a href="https://www.cvc.com/media/news/2026/cvc-welcomes-apollo-as-minority-investor-in-syntegon-partnership-to-accelerate-next-growth-phase/" target="_blank" rel="noopener">CVC, 23 Mar 2026</a></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · COMPETITOR WATCH — QUIET -->
+  <section class="slide">
+    <div class="kicker">Competitor watch · quiet board</div>
+    <h2>Checked individually — nothing material this week</h2>
+    <div class="rule"></div>
+    <div class="cards two">
+      <div class="card">
+        <span class="pill bg">Nothing material</span>
+        <div class="ck">Ilapak / IMA Group</div>
+        <h3>Newsroom checked directly</h3>
+        <p>Latest item remains a 26 Jun webinar; the only calendar entry this week is CPHI SEA (Bangkok, 8–10 Jul) — pharma, not food FFS. VFFS portfolio items (Vegatronic 6400HD, Oxipack collaboration) are Apr-2026 background.</p>
+        <details><summary>Details</summary><div class="d">Source: <a href="https://imagroup.com/news/" target="_blank" rel="noopener">IMA Group newsroom (checked 9 Jul 2026)</a></div></details>
+      </div>
+      <div class="card">
+        <span class="pill bg">Recirculation note</span>
+        <div class="ck">interpack 2026 echo</div>
+        <h3>Show coverage keeps republishing with July dates</h3>
+        <p>interpack (7–13 May) product stories continue to surface in trade press ~2 months after the event. They are treated as background here, not news — only genuinely dated developments make this briefing.</p>
+      </div>
+    </div>
+    <div class="quietlist">
+      <p><b>Checked, nothing material this week:</b> Cavanna (Coesia) · Coesia group (no AGCM developments since the 1 Jul widening reported last issue) · Rovema · GEA SmartPacker · tna Solutions · Ishida · Yamato Scale · Fuji Machinery / Formost Fuji · Omori · Triangle Package Machinery · Viking Masek · Tecnopack · Volpak · Mespack · SN Maschinenbau · HDG · BW Flexible Systems (Hayssen) · Duravant &amp; Barry-Wehmiller at group level (no new M&amp;A found in July).</p>
+    </div>
+  </section>
+
+  <!-- 7 · INDUSTRY DIGEST -->
+  <section class="slide">
+    <div class="kicker">Industry digest</div>
+    <h2>Regulation, demand signals, markets &amp; events</h2>
+    <div class="rule"></div>
+    <div class="cards three">
+      <div class="card">
+        <span class="pill watch">Regulatory</span>
+        <div class="ck">EU · Italy</div>
+        <h3>Three dated compliance points</h3>
+        <p>PPWR full application <b style="color:var(--ink)">12 Aug</b>; BPA single-use packaging ban <b style="color:var(--ink)">20 Jul</b>; Conai's new EPR fee category for compostable bioplastic capsules/pods (7 Jul) — a minor cost signal for Italian single-serve packaging.</p>
+        <details><summary>Details</summary><div class="d">Sources: <a href="https://ec.europa.eu/commission/presscorner/detail/en/ip_26_664" target="_blank" rel="noopener">European Commission, 30 Mar 2026</a> · <a href="https://www.italiaimballaggio.it/fatti-e-dati/la-normativa-europea-sul-bisfenolo-impatti-e-tempistiche-limballaggio-alimentare" target="_blank" rel="noopener">ItaliaImballaggio, 1 May 2026</a> · <a href="https://www.italiaimballaggio.it/fatti-e-dati/conai-nuovo-contributo-capsule-e-cialde-bioplastica-compostabile" target="_blank" rel="noopener">ItaliaImballaggio, 7 Jul 2026</a></div></details>
+      </div>
+      <div class="card">
+        <span class="pill bg">Demand signals</span>
+        <div class="ck">Bakery · Snacks · Confectionery</div>
+        <h3>Consolidation + capacity building continue</h3>
+        <p>H1-2026 sector review (13 Jun): Mars–Kellanova integration completed Q1; Rise Baking expanding Pleasant View, Utah (late 2026); Aryzta building a new Portugal bakery plant. US confectionery construction pipeline estimated &gt;$1.6bn — <i>trade estimate, article date unconfirmed, single source</i>.</p>
+        <details><summary>Details</summary><div class="d">Sources: <a href="https://millingmea.com/h1-2026-in-review-baking-snacks-sector-trends-ma-investments-and-new-products/" target="_blank" rel="noopener">Milling MEA, 13 Jun 2026</a> · <a href="https://www.industrialinfo.com/iirenergy/industry-news/article/how-sweet-it-is-us-confectionery-companies-plan-more-than-16-billion-in-construction-investments--358763" target="_blank" rel="noopener">Industrial Info (undated)</a></div></details>
+      </div>
+      <div class="card">
+        <span class="pill bg">Markets &amp; events</span>
+        <div class="ck">Pet food · Germany · Italy</div>
+        <h3>Ongoing programs; association consolidation</h3>
+        <p>Pet food: US remains the most active geography on known programs (Mars ~$2bn through 2026; Purina Batavia, OH opens Aug) — nothing new this week. Dairy: nothing material in priority markets. Germany: no new VDMA data; Packaging Award winners due 30 Jul. Italy: ACIMGA + ARGI merged into <b style="color:var(--ink)">PACTA</b> (printing/converting association), 9 Jul.</p>
+        <details><summary>Details</summary><div class="d">Sources: <a href="https://www.petfoodprocessing.net/articles/19510-mars-to-invest-2-billion-in-manufacturing-in-2026" target="_blank" rel="noopener">Pet Food Processing (program coverage)</a> · <a href="https://packaging-journal.de/verpackungspreis-2026-mit-verlaengerter-einreichungsfrist/" target="_blank" rel="noopener">packaging journal (DE)</a> · <a href="https://www.italiaimballaggio.it/index.php/mercato/nasce-pacta-acimga-e-argi-uniscono-le-forze-rappresentare-il-futuro-delle-tecnologie-il" target="_blank" rel="noopener">ItaliaImballaggio, 9 Jul 2026</a></div></details>
+      </div>
+    </div>
+    <div class="foot-note">Segment read is high-level by design — company-by-company target research is a separate UIC process (Targets_Master), out of scope here.</div>
+  </section>
+
+  <!-- 8 · CLOSING / LEGEND -->
+  <section class="slide">
+    <div class="kicker">How to read this briefing</div>
+    <h2>Tags, cadence, and what gets included</h2>
+    <div class="rule"></div>
+    <div class="legend">
+      <div class="card"><span class="pill new">New this week</span><p>First reported within the rolling 7-day window, with a dated source. These are the items worth reacting to.</p></div>
+      <div class="card"><span class="pill watch">Watchlist / Update</span><p>A development on something previously reported — only the delta is stated. "No change" means we checked and nothing moved.</p></div>
+      <div class="card"><span class="pill bg">Background</span><p>Older or recirculating coverage (typically interpack/PACK EXPO cycle) included only where commercially relevant to PFM's technologies and markets. Trade-show news often republishes weeks after the event — publish dates can mislead.</p></div>
+      <div class="card"><div class="ck">Ground rules</div><p>Every claim carries a source link and publication date. Undated or single-source items are flagged, not presented as fact. Quiet weeks are reported as quiet — no padding.</p></div>
+    </div>
+    <div class="foot-note">All markets in scope. Weighting reference — FFS geographic mix 2025 (UCIMA–MECS Table 6.12, via PFM Sector Executive Report §2.3): EU 26.9% · Asia 26.9% · North America 16.1% · Africa 11.9% · Extra-EU Europe 9.3% · South America 7.6%.<br>Primary record: Notion → PFM Knowledge Base → Weekly Intelligence Briefing — 2026-07-09. Use ← → keys or the dots to navigate; printing expands all slides and details.</div>
+  </section>
+
+</div>
+
+<div class="nav" id="nav"></div>
+<div class="pageno" id="pageno"></div>
+<div class="brand">PFM · UIC Bi-Weekly Briefing · 2026-07-09</div>
+<div class="hint">← → to navigate · Ctrl/Cmd+P to print</div>
+
+<script>
+  var slides=[].slice.call(document.querySelectorAll('.slide')),cur=0,nav=document.getElementById('nav');
+  slides.forEach(function(_,i){var b=document.createElement('button');b.className='dot';b.setAttribute('aria-label','Slide '+(i+1));b.onclick=function(){go(i)};nav.appendChild(b)});
+  function go(i){cur=Math.max(0,Math.min(slides.length-1,i));slides.forEach(function(s,j){s.classList.toggle('active',j===cur)});
+    [].slice.call(nav.children).forEach(function(d,j){d.classList.toggle('on',j===cur)});
+    document.getElementById('pageno').textContent=(cur+1)+' / '+slides.length;}
+  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ')go(cur+1);if(e.key==='ArrowLeft'||e.key==='PageUp')go(cur-1);if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1)});
+  var openedForPrint=[];
+  window.addEventListener('beforeprint',function(){openedForPrint=[];document.querySelectorAll('details:not([open])').forEach(function(d){d.setAttribute('open','');openedForPrint.push(d)})});
+  window.addEventListener('afterprint',function(){openedForPrint.forEach(function(d){d.removeAttribute('open')});openedForPrint=[]});
+  go(0);
+</script>
+</body>
+</html>
